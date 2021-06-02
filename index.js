@@ -2,6 +2,10 @@ const express = require('express');
 const routes = require('./routes');
 const path = require('path');
 const bodyParser = require('body-parser');
+//const expressValidator = require('express-validator');
+
+//helpers con algunas funciones
+const helpers = require('./helpers');
 
 //Crear conexion a la BD
 const db = require('./config/db');
@@ -15,6 +19,9 @@ db.sync()
 //crear una app de express
 const app = express();
 
+//Agregamos express validator a toda la aplicacion
+//app.use(expressValidator());
+
 //donde cargar los archivos estaticos por ejemplo css
 app.use(express.static('public'));
 
@@ -23,6 +30,12 @@ app.set('view engine', 'pug');
 
 //agregar carpeta de vistas
 app.set('views', path.join(__dirname, './views'));
+
+//pasar var dump a la aplicacion para mapear nombreProyecto, url
+app.use((req, res, next) => {
+    res.locals.vardump = helpers.vardump;
+    next();
+})
 
 //habilitar bobyParser para leer datos del formulario
 app.use(bodyParser.urlencoded({

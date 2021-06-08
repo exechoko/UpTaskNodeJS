@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "nodemon ./index.js",
         "start": "concurrently \"npm run dev\" \"npm run watch\" ",
-        "watch": "webpack --mode development"
+        "watch": "webpack -w --mode development"
     },
     "author": "Exequiel Marichal",
     "license": "ISC",
